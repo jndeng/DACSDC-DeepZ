@@ -17,7 +17,7 @@ The performance of our model is as follow:
 
 | Self-Test Accuracy (mean IoU) | Organizer-Test Accuracy (mean IoU) | Speed (FPS on Jetson TX2)
 |:-----:|:-----:|:-----:|
-| 0.782 | 0.671 | ~25 |
+| 0.831 | 0.671 | ~25 |
 
 **Note:**  
 
@@ -44,7 +44,8 @@ git clone https://github.com/jndeng/DACSDC-DeepZ.git
 # For project 'Train'
 cd $TRAIN_ROOT
 make -j8
-
+```
+```Shell
 # For project 'Inference'
 cd $INFERENCE_ROOT
 make -j8
