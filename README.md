@@ -14,9 +14,10 @@ Moreover, we used multithreading to accelerate the process of prediction by load
 
 
 The performance of our model is as follow:
-Self-Test Accuracy<br />(mean IoU) | Organizer-Test Accuracy<br />(mean IoU) | Speed<br />(FPS on Jetson TX2)
- :-:                      | :-:            | :-:
- 0.872                    | 0.671          | ~25
+
+| Self-Test Accuracy (mean IoU) | Organizer-Test Accuracy (mean IoU) | Speed (FPS on Jetson TX2)
+|:-----:|:-----:|:-----:|
+| 0.782 | 0.671 | ~25 |
 
 **Note:**  
 
