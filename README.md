@@ -37,7 +37,7 @@ We develop two projects for different purposes in this repository. Project `Trai
 1. Download the source code on the appropriate devices respectively. Project `Train` is recommended using on device with powerful GPU. While project `Inference` should be used on NVIDIA Jetson TX2 in order to make a fair evaluation.
 ```Shell
 # You may use this command twice to download the source code on different devices
-git clone xxx
+git clone https://github.com/jndeng/DACSDC-DeepZ.git
 ```
 2. Build the source code of two projects on the corresponding device. We will use `$TRAIN_ROOT` and `$INFERENCE_ROOT` to call the directory of project `Train` and project `Inference` respectively.
 ```Shell
