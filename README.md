@@ -6,13 +6,13 @@ This repository contains the proposed solution of team DeepZ(GPU Platform) for [
 ## Introduction
 Due to the speed limitation of 20 FPS, we started with [YOLOv2-Tiny detector](https://pjreddie.com/darknet/yolov2/), which consists of a backbone network for feature extraction and a detection network for candidate bounding box generation. Considering that there is no need to classify in our task, we reduced the detection network to a location network, in which a candidate bounding box is only represented by a confidence socre and a position.
 
-However, with such a simple model, we were soon faced with the challenges of tiny objects, occlusions and distraction from the provided data set. In order to tackle to the aforementioned challenges, we investigated various network architectures for both training and inference. 
+However, with such a simple model, we were soon faced with the challenges of tiny objects, occlusions and distractions from the provided data set. In order to tackle to the aforementioned challenges, we investigated various network architectures for both training and inference. 
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/jndeng/DACSDC-DeepZ/master/Train/cfg/architecture.png" alt="network architecture" width="380px" height="400px">
 </p>
 
-We later combined [Feature Pyramid Network](https://arxiv.org/abs/1612.03144v2) to fuse fine-grained features with strong semantic features to enhance the ability in detecting small objects. Meanwhile, we utilized [Focal Loss](https://arxiv.org/abs/1708.02002) function to mitigate the imbalance between the single ground truth box and the candidate boxes at training phase, thereby partially resolving occlusions and distractions. With the combined techniques, we achieved the inference network as shown in the figure with an accuracy improvement of ~ 0.042 while maintaining pretty much the same speed. 
+We later combined [Feature Pyramid Network](https://arxiv.org/abs/1612.03144v2) to fuse fine-grained features with strong semantic features to enhance the ability in detecting small objects. Meanwhile, we utilized [Focal Loss](https://arxiv.org/abs/1708.02002) function to mitigate the imbalance between the single ground truth box and the candidate boxes at training phase, thereby partially resolving occlusions and distractions. With the combined techniques, we achieved the inference network as shown in the figure with an accuracy improvement of ~ 0.042. 
 
 Moreover, we used multithreading to accelerate the process of prediction by loading images and infering in parallel, which improved about 7 FPS on NVIDIA Jetson TX2.
 
@@ -21,7 +21,7 @@ The performance of our model is as follow:
 
 | Self-Test Accuracy (mean IoU) | Organizer-Test Accuracy (mean IoU) | Speed (FPS on Jetson TX2)
 |:-----:|:-----:|:-----:|
-| 0.831 | 0.671 | ~25 |
+| 0.838 | 0.691 | ~25 |
 
 **Note:**  
 
@@ -38,12 +38,12 @@ We develop two projects for different purposes in this repository. Project `Trai
  * Python2/Python2-Numpy
 
 *Project download and installation:*
-1. Download the source code on the appropriate devices respectively. Project `Train` is recommended using on device with powerful GPU. While project `Inference` should be used on NVIDIA Jetson TX2 in order to make a fair evaluation.
+1. Download the source code on the appropriate devices respectively. Project `Train` is recommended using on device with powerful GPU. While project `Inference` should be used on NVIDIA Jetson TX2 in order to make a fair evaluation of speed.
 ```Shell
 # You may use this command twice to download the source code on different devices
 git clone https://github.com/jndeng/DACSDC-DeepZ.git
 ```
-2. Build the source code of two projects on the corresponding device. We will use `$TRAIN_ROOT` and `$INFERENCE_ROOT` to call the directory of project `Train` and project `Inference` respectively.
+2. Build the source code of two projects separately on the corresponding device. We will use `$TRAIN_ROOT` and `$INFERENCE_ROOT` to call the directory of project `Train` and project `Inference` respectively.
 ```Shell
 # For project 'Train'
 cd $TRAIN_ROOT
@@ -74,8 +74,14 @@ rm xxx.tar.gz
 cd $TRAIN_ROOT/data/script
 python generate_dataset.py
 ```
-3. Randomly divide the entire dataset into two disjoint parts: training set and validation set according to 8:2 ratio. The result of division will be stored in `$TRAIN_ROOT/data/dataset` as the meta files. [here]() are meta files of the division used in our experiments.
+3. Randomly divide the entire dataset into two disjoint parts: training set and validation set according to 8:2 ratio. The result of division will be stored in `$TRAIN_ROOT/data/dataset` as the meta files. You can make a new division by yourself, or just apply the pre-divided dataset used in our experiments.
 ```Shell
+# Make a new division
+cd $TRAIN_ROOT/data/script
+python divide_dataset_randomly.py
+```
+```Shell
+# Use a pre-divided dataset
 cd $TRAIN_ROOT/data/script
 python divide_dataset.py
 ```
