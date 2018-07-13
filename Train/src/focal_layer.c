@@ -189,7 +189,80 @@ void forward_focal_layer(const layer l, network net) {
 			}
 		}
 	} else if (SSD == l.strategy_type) {
-    /* No implementation */
+		// can only support single feature map bbox extraction
+		assert(l.max_boxes == 1);  // consider only one gt bbox in one single image
+		indexbox *neg_boxes = calloc(l.w*l.h*l.n, sizeof(indexbox));
+		for (b = 0; b < l.batch; ++b) {
+			// get the gt bbox first
+			box truth_box = float_to_box(net.truth + b*l.truths, 1);
+			if (!truth_box.x)  // in case there is no proper gt bbox in an image
+				continue;  
+
+			// process positive examples
+			int tot_neg = 0, tot_pos = 0;
+			float max_iou = -1;
+			indexbox max_box = { 0 };
+			for (j = 0; j < l.h; ++j) {
+				for (i = 0; i < l.w; ++i) {
+					for (n = 0; n < l.n; ++n) {
+						int index = n*l.w*l.h + j*l.w + i;
+						box default_box = {
+							.x = (i + 0.5) / l.w,
+							.y = (j + 0.5) / l.h,
+							.w = l.biases[2*n] / l.w,
+							.h = l.biases[2*n + 1] / l.h
+						};
+						float cur_iou = box_iou(default_box, truth_box);
+						if (cur_iou > max_iou) {
+							max_iou = cur_iou;
+							indexbox tmp_box = { .i = i, .j = j, .n = n };
+							max_box = tmp_box;
+						}
+						if (cur_iou > l.pos_thresh) {  // positive example
+							int obj_index = focal_entry_index(l, b, index, l.coords);
+							delta_con(l.output, 1, obj_index, l.focal_alpha, l.focal_gamma, loss, l.delta, l.object_scale, l.con_loss_type);
+							int box_index = focal_entry_index(l, b, index, 0);
+							delta_pos(l.output, truth_box, l.biases, n, box_index, i, j, l.w, l.h, loss, l.delta, l.coord_scale, l.w*l.h, l.pos_loss_type, l.strategy_type);
+							tot_pos += 1;
+						}
+						if (cur_iou < l.neg_thresh) {  // potential negative example
+							int obj_index = focal_entry_index(l, b, index, l.coords);
+							indexbox tmp_box = { 
+								.conf = l.output[obj_index],
+								.i = i,.j = j,.n = n 
+							};
+							neg_boxes[tot_neg] = tmp_box;
+							tot_neg += 1;
+						}
+					}
+				}
+			}
+			if (max_iou < l.pos_thresh) {
+				// in case no iou > l.pos_thresh, need to guranteed at least one positive example
+				int index = max_box.n*l.w*l.h + max_box.j*l.w + max_box.i;
+				int obj_index = focal_entry_index(l, b, index, l.coords);
+				delta_con(l.output, 1, obj_index, l.focal_alpha, l.focal_gamma, loss, l.delta, l.object_scale, l.con_loss_type);
+				int box_index = focal_entry_index(l, b, index, 0);
+				delta_pos(l.output, truth_box, l.biases, max_box.n, box_index, max_box.i, max_box.j, l.w, l.h, loss, l.delta, l.coord_scale, l.w*l.h, l.pos_loss_type, l.strategy_type);
+				tot_pos += 1;
+			}
+
+			// process negative examples
+			sort_bbox(neg_boxes, tot_neg);  // sort all negative bboxes according to confidence
+			int max_index = max_box.n*l.w*l.h + max_box.j*l.w + max_box.i;
+			int sel_neg = MMIN(tot_pos*3, tot_neg);
+			for (i = 0, j = 0; i < tot_neg && j < sel_neg; ++i) {
+				indexbox cur_box = neg_boxes[i];
+				int cur_index = cur_box.n*l.w*l.h + cur_box.j*l.w + cur_box.i;
+				if (cur_index == max_index)
+					continue;
+				int obj_index = focal_entry_index(l, b, cur_index, l.coords);
+				delta_con(l.output, 0, obj_index, l.focal_alpha, l.focal_gamma, loss, l.delta, l.noobject_scale, l.con_loss_type);
+				++j;
+			}
+			
+		}
+		free(neg_boxes);
 	} else if (RCNN == l.strategy_type) {
 		/* No implementation */
 	} else {}

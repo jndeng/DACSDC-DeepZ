@@ -21,7 +21,7 @@ The performance of our model is as follow:
 
 | Self-Test Accuracy (mean IoU) | Organizer-Test Accuracy (mean IoU) | Speed (FPS on Jetson TX2)
 |:-----:|:-----:|:-----:|
-| 0.838 | 0.691 | ~25 |
+| 0.856 | 0.691 | ~25 |
 
 **Note:**  
 
@@ -61,13 +61,13 @@ make -j8
 
 
 ### Data Preparation
-1. Download the raw dataset from [here (6GB)]() (about 100,000 images and the corresponding labels) and unzip it to `$TRAIN_ROOT/data/raw_dataset`.
+1. Download the raw dataset from [here (6GB)](https://drive.google.com/open?id=1iLXI4ms1pkLjaWbt739ugDGscT-61fhY) (about 100,000 images and the corresponding labels) and unzip it to `$TRAIN_ROOT/data/raw_dataset`.
 ```Shell
 cd $TRAIN_ROOT/data
-wget http://xxx
-tar -xzvf xxx.tar.gz
-mv xxx raw_dataset
-rm xxx.tar.gz
+wget https://drive.google.com/open?id=1iLXI4ms1pkLjaWbt739ugDGscT-61fhY
+tar -xvf dac_origin.tar
+mv dac_origin raw_dataset
+rm dac_origin.tar
 ```
 2. Use the raw dataset in `$TRAIN_ROOT/data/raw_dataset` to generate the proper dataset in `$TRAIN_ROOT/data/train_dataset` for training. The entire process of dataset generation takes about 14GB of hard disk space, and the raw dataset will no longer be needed once we obtain the dataset in `$TRAIN_ROOT/data/train_dataset`.
 ```Shell
@@ -105,7 +105,7 @@ By default, training log will be written to file `$TRAIN_ROOT/log/yolo_tiny_dacs
 
 *Validation:*
 
-You can also validate a model trained by yourself manually. Or just download our trained model [here (43MB)]() and put it into `$TRAIN_ROOT/model`.
+You can also validate a model trained by yourself manually. Or just download our trained model [here (43MB)](https://drive.google.com/open?id=1wlJtQKObDzTsxAUVh33zI-Pzr07N5ZoX) and put it into `$TRAIN_ROOT/model`.
 1. Configurate paths in `$TRAIN_ROOT/script/valid_model.sh`.
 2. Start validating.
 ```Shell
