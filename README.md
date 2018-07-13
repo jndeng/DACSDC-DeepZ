@@ -8,6 +8,10 @@ Due to the speed limitation of 20 FPS, we started with [YOLOv2-Tiny detector](ht
 
 However, with such a simple model, we were soon faced with the challenges of tiny objects, occlusions and distraction from the provided data set. In order to tackle to the aforementioned challenges, we investigated various network architectures for both training and inference. 
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/jndeng/DACSDC-DeepZ/master/Train/cfg/architecture.png" alt="network architecture" width="350px" height="400px">
+</p>
+
 We later combined [Feature Pyramid Network](https://arxiv.org/abs/1612.03144v2) to fuse fine-grained features with strong semantic features to enhance the ability in detecting small objects. Meanwhile, we utilized [Focal Loss](https://arxiv.org/abs/1708.02002) function to mitigate the imbalance between the single ground truth box and the candidate boxes at training phase, thereby partially resolving occlusions and distractions. With the combined techniques, we achieved the inference network as shown in the figure with an accuracy improvement of ~ 0.042 while maintaining pretty much the same speed. 
 
 Moreover, we used multithreading to accelerate the process of prediction by loading images and infering in parallel, which improved about 7 FPS on NVIDIA Jetson TX2.
