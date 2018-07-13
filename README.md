@@ -61,10 +61,9 @@ make -j8
 
 
 ### Data Preparation
-1. Download the raw dataset from [here (6GB)](https://drive.google.com/open?id=1iLXI4ms1pkLjaWbt739ugDGscT-61fhY) (about 100,000 images and the corresponding labels) and unzip it to `$TRAIN_ROOT/data/raw_dataset`.
+1. Download the raw dataset [dac_origin.tar (6.3GB)](https://drive.google.com/open?id=1iLXI4ms1pkLjaWbt739ugDGscT-61fhY) (about 100,000 images and the corresponding labels) and unzip it to `$TRAIN_ROOT/data/raw_dataset`.
 ```Shell
 cd $TRAIN_ROOT/data
-wget https://drive.google.com/open?id=1iLXI4ms1pkLjaWbt739ugDGscT-61fhY
 tar -xvf dac_origin.tar
 mv dac_origin raw_dataset
 rm dac_origin.tar
