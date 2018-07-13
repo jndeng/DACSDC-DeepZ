@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# change it to $TRAIN_ROOT
+# change it to your $TRAIN_ROOT
 train_root=/home/djn/projects/DAC-Contest/DACSDC-DeepZ/Train
 
 # set the path of validation cfg file

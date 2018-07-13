@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# change it to $TRAIN_ROOT
+# change it to your $TRAIN_ROOT
 train_root=/home/djn/projects/DAC-Contest/DACSDC-DeepZ/Train
 
 # set the path of training cfg file
@@ -45,4 +45,4 @@ nohup \
 	-model_name ${model_name} \
 	-model_dir ${model_path} \
 	-log_dir ${log_path} \
-  -avg_loss -1 > ${log_file} 2>&1 &
+	-avg_loss -1 > ${log_file} 2>&1 &
