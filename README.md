@@ -9,7 +9,7 @@ Due to the speed limitation of 20 FPS, we started with [YOLOv2-Tiny detector](ht
 However, with such a simple model, we were soon faced with the challenges of tiny objects, occlusions and distraction from the provided data set. In order to tackle to the aforementioned challenges, we investigated various network architectures for both training and inference. 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/jndeng/DACSDC-DeepZ/master/Train/cfg/architecture.png" alt="network architecture" width="350px" height="400px">
+<img src="https://raw.githubusercontent.com/jndeng/DACSDC-DeepZ/master/Train/cfg/architecture.png" alt="network architecture" width="380px" height="400px">
 </p>
 
 We later combined [Feature Pyramid Network](https://arxiv.org/abs/1612.03144v2) to fuse fine-grained features with strong semantic features to enhance the ability in detecting small objects. Meanwhile, we utilized [Focal Loss](https://arxiv.org/abs/1708.02002) function to mitigate the imbalance between the single ground truth box and the candidate boxes at training phase, thereby partially resolving occlusions and distractions. With the combined techniques, we achieved the inference network as shown in the figure with an accuracy improvement of ~ 0.042 while maintaining pretty much the same speed. 
@@ -74,7 +74,7 @@ rm xxx.tar.gz
 cd $TRAIN_ROOT/data/script
 python generate_dataset.py
 ```
-3. Randomly divide the entire dataset into two disjoint parts: training set and validation set according to 8:2 ratio. The result of division will be stored in `$TRAIN_ROOT/data/dataset` as the meta files.
+3. Randomly divide the entire dataset into two disjoint parts: training set and validation set according to 8:2 ratio. The result of division will be stored in `$TRAIN_ROOT/data/dataset` as the meta files. [here]() are meta files of the division used in our experiments.
 ```Shell
 cd $TRAIN_ROOT/data/script
 python divide_dataset.py
@@ -97,7 +97,7 @@ bash train_model.sh
 By default, training log will be written to file `$TRAIN_ROOT/log/yolo_tiny_dacsdc.out`, and validation will be performed on validation set every 20000 batch automatically. The accuracy of each validation will be stored in file `$TRAIN_ROOT/log/yolo_tiny_dacsdc.log`. Besides, weights of the best model among all validated models will be saved as `$TRAIN_ROOT/model/yolo_tiny_dacsdc_best.weights`.
 
 
-*Validation:*  
+*Validation:*
 
 You can also validate a model trained by yourself manually. Or just download our trained model [here (43MB)]() and put it into `$TRAIN_ROOT/model`.
 1. Configurate paths in `$TRAIN_ROOT/script/valid_model.sh`.
