@@ -88,10 +88,6 @@ python divide_dataset.py
 ### Train/Validation
 *Train:*
 1. Download the [convolutional weights](https://drive.google.com/open?id=1wlJtQKObDzTsxAUVh33zI-Pzr07N5ZoX) which are pre-trained on COCO dataset into `$TRAIN_ROOT/model` to initialize our model.
-```Shell
-cd $TRAIN_ROOT/model
-wget http://xxx
-```
 2. Configurate project path and data path in `$TRAIN_ROOT/script/train_model.sh`.
 3. Start training.
 ```Shell
