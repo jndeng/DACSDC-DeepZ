@@ -88,7 +88,7 @@ python divide_dataset.py
 ### Train/Validation
 *Train:*
 1. Download the [convolutional weights](https://drive.google.com/open?id=1wlJtQKObDzTsxAUVh33zI-Pzr07N5ZoX) which are pre-trained on COCO dataset into `$TRAIN_ROOT/model` to initialize our model.
-2. Configurate project path and data path in `$TRAIN_ROOT/script/train_model.sh`.
+2. Configurate project path in `$TRAIN_ROOT/script/train_model.sh`.
 3. Start training.
 ```Shell
 cd $TRAIN_ROOT/script
@@ -101,7 +101,7 @@ By default, training log will be written to file `$TRAIN_ROOT/log/yolo_tiny_dacs
 *Validation:*
 
 You can also validate a model trained by yourself manually. Or just download our trained model [here (43MB)](https://drive.google.com/open?id=1wlJtQKObDzTsxAUVh33zI-Pzr07N5ZoX) and put it into `$TRAIN_ROOT/model`.
-1. Configurate paths in `$TRAIN_ROOT/script/valid_model.sh`.
+1. Configurate project path in `$TRAIN_ROOT/script/valid_model.sh`.
 2. Start validating.
 ```Shell
 cd $TRAIN_ROOT/script
@@ -116,4 +116,4 @@ We provide a python interface for inference on Jetson TX2. Assume that all the i
 cd $INFERENCE_ROOT/script
 python main.py
 ```
-3. Wait until the process is finished, and then you will find the inference result of each image in `$INFERENCE_ROOT/data/result/xml`, where each .xml file contains the predicted box of the corresponding image. Besides, the speed of the model will be recorded in `$INFERENCE_ROOT/data/result/time/time.txt`.
+3. Wait until the process is finished, and then you can obtain the inference result of each image in `$INFERENCE_ROOT/data/result/xml`, where each .xml file contains the predicted bounding box of the corresponding image. Besides, the speed of the model will be recorded in `$INFERENCE_ROOT/data/result/time/time.txt`.
