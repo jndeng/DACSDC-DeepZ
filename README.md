@@ -68,7 +68,7 @@ tar -xvf dac_origin.tar
 mv dac_origin raw_dataset
 rm dac_origin.tar
 ```
-2. Use the raw dataset in `$TRAIN_ROOT/data/raw_dataset` to generate the proper dataset in `$TRAIN_ROOT/data/train_dataset` for training. The entire process of dataset generation takes about 14GB of hard disk space, and the raw dataset will no longer be needed once we obtain the dataset in `$TRAIN_ROOT/data/train_dataset`.
+2. Use the raw dataset `$TRAIN_ROOT/data/raw_dataset` to generate the proper dataset `$TRAIN_ROOT/data/train_dataset` for training. The entire process of dataset generation takes about 14GB of hard disk space, and the raw dataset will no longer be needed once we obtain `$TRAIN_ROOT/data/train_dataset`.
 ```Shell
 cd $TRAIN_ROOT/data/script
 python generate_dataset.py
