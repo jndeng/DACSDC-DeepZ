@@ -21,7 +21,7 @@ The performance of our model is as follow:
 
 | Self-Test Accuracy (mean IoU) | Organizer-Test Accuracy (mean IoU) | Speed (FPS on Jetson TX2)
 |:-----:|:-----:|:-----:|
-| 0.856 | 0.691 | ~25 |
+| 0.866 | 0.691 | ~25 |
 
 **Note:**  
 
