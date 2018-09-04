@@ -64,7 +64,7 @@ make -j8
 
 ### Data Preparation
 ~~1. Download the raw dataset [dac_origin.tar (6.3GB)]() (about 100,000 images and the corresponding labels) and unzip it to `$TRAIN_ROOT/data/raw_dataset`.~~
-1. Download the official dataset, unzip it, rename and move the folder contains all subclasses folder to `$TRAIN_ROOT/data/raw_dataset`.
+1. Download the official dataset, unzip it, rename and move the folder contains all subclass folders to `$TRAIN_ROOT/data/raw_dataset`.
 2. Use the raw dataset `$TRAIN_ROOT/data/raw_dataset` to generate the proper dataset `$TRAIN_ROOT/data/train_dataset` for training. The entire process of dataset generation takes about 14GB of hard disk space, and the raw dataset will no longer be needed once we obtain `$TRAIN_ROOT/data/train_dataset`.
 ```Shell
 cd $TRAIN_ROOT/data/script
