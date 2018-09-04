@@ -2,6 +2,8 @@
 
 This repository contains the proposed solution of team DeepZ(GPU Platform) for [2018 System Design Contest](https://dac.com/content/2018-system-design-contest).
 
+**UPD: Official dataset is available [in this repo](https://github.com/xyzxinyizhang/2018-DAC-System-Design-Contest).
+And we just learn that the dataset has been updated and reduced from 98 classes to 95 classes. Unfortunately, we did not notice the update during the contest, which means all of our experiments were based on the former 98 classes dataset. This should not have a big impact on our model, but the division of the dataset will be different using the new dataset, breaking some of the scripts. For now, we don't have time to review and update those scipts, so feel free to ask here if you encounter any problems.**
 
 ## Introduction
 Due to the speed limitation of 20 FPS, we started with [YOLOv2-Tiny detector](https://pjreddie.com/darknet/yolov2/), which consists of a backbone network for feature extraction and a detection network for candidate bounding box generation. Considering that there is no need to classify in our task, we reduced the detection network to a location network, in which a candidate bounding box is only represented by a confidence socre and a position.
@@ -68,6 +70,7 @@ tar -xvf dac_origin.tar
 mv dac_origin raw_dataset
 rm dac_origin.tar
 ```
+P.S. 
 2. Use the raw dataset `$TRAIN_ROOT/data/raw_dataset` to generate the proper dataset `$TRAIN_ROOT/data/train_dataset` for training. The entire process of dataset generation takes about 14GB of hard disk space, and the raw dataset will no longer be needed once we obtain `$TRAIN_ROOT/data/train_dataset`.
 ```Shell
 cd $TRAIN_ROOT/data/script
